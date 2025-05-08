@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nhận diện món ăn</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script
+      src="{{ url_for('static', filename='js/script.js') }}"
+      defer
+    ></script>
+  </head>
+  <body>
+    <h1>Nhận diện món ăn từ ảnh</h1>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/predict" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required />
+      <button type="submit">Dự đoán</button>
+    </form>
+
+    {% if image_path %}
+    <div class="result">
+      <h2>Ảnh đã upload:</h2>
+      <img src="{{ image_path }}" alt="Uploaded Image" />
+      <h3>Kết quả dự đoán:</h3>
+      <p><strong>Món ăn:</strong> {{ label }}</p>
+      <p><strong>Giá tiền:</strong> {{ price }} VNĐ</p>
+    </div>
+    {% endif %}
+  </body>
+</html>
